@@ -13,7 +13,7 @@ public class ExifPlugin extends Plugin {
 
     private static final String TAG = "ExifPlugin";
 
-    private Exif implementation = new Exif();
+    private final Exif implementation = new Exif();
 
     @PluginMethod
     public void echo(PluginCall call) {
@@ -55,6 +55,7 @@ public class ExifPlugin extends Plugin {
         call.resolve();
     }
 
+    @PluginMethod(returnType = PluginMethod.RETURN_PROMISE)
     public void getCoordinates(final PluginCall call) {
         
         if (!call.getData().has("pathToImage")) {
