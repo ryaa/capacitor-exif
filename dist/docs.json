@@ -23,12 +23,12 @@
       },
       {
         "name": "setCoordinates",
-        "signature": "(options: ExifOptions) => Promise<void>",
+        "signature": "(options: SetCoordinatesOptions) => Promise<void>",
         "parameters": [
           {
             "name": "options",
             "docs": "",
-            "type": "ExifOptions"
+            "type": "SetCoordinatesOptions"
           }
         ],
         "returns": "Promise<void>",
@@ -40,17 +40,40 @@
         ],
         "docs": "Set the coordinates to the image EXIF metadata.",
         "complexTypes": [
-          "ExifOptions"
+          "SetCoordinatesOptions"
         ],
         "slug": "setcoordinates"
+      },
+      {
+        "name": "getCoordinates",
+        "signature": "(options: GetCoordinatesOptions) => Promise<{ value: { latitude: number; longitude: number; }; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "GetCoordinatesOptions"
+          }
+        ],
+        "returns": "Promise<{ value: { latitude: number; longitude: number; }; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "6.0.0"
+          }
+        ],
+        "docs": "Set the coordinates to the image EXIF metadata.",
+        "complexTypes": [
+          "GetCoordinatesOptions"
+        ],
+        "slug": "getcoordinates"
       }
     ],
     "properties": []
   },
   "interfaces": [
     {
-      "name": "ExifOptions",
-      "slug": "exifoptions",
+      "name": "SetCoordinatesOptions",
+      "slug": "setcoordinatesoptions",
       "docs": "",
       "tags": [],
       "methods": [],
@@ -90,6 +113,27 @@
           "docs": "The longitude of the image.",
           "complexTypes": [],
           "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "GetCoordinatesOptions",
+      "slug": "getcoordinatesoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "pathToImage",
+          "tags": [
+            {
+              "text": "6.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "The path to the image to set the coordinates to the EXIF metadata.",
+          "complexTypes": [],
+          "type": "string"
         }
       ]
     }

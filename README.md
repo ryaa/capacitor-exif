@@ -15,6 +15,7 @@ npx cap sync
 
 * [`echo(...)`](#echo)
 * [`setCoordinates(...)`](#setcoordinates)
+* [`getCoordinates(...)`](#getcoordinates)
 * [Interfaces](#interfaces)
 
 </docgen-index>
@@ -40,14 +41,33 @@ echo(options: { value: string; }) => Promise<{ value: string; }>
 ### setCoordinates(...)
 
 ```typescript
-setCoordinates(options: ExifOptions) => Promise<void>
+setCoordinates(options: SetCoordinatesOptions) => Promise<void>
 ```
 
 Set the coordinates to the image EXIF metadata.
 
-| Param         | Type                                                |
-| ------------- | --------------------------------------------------- |
-| **`options`** | <code><a href="#exifoptions">ExifOptions</a></code> |
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#setcoordinatesoptions">SetCoordinatesOptions</a></code> |
+
+**Since:** 6.0.0
+
+--------------------
+
+
+### getCoordinates(...)
+
+```typescript
+getCoordinates(options: GetCoordinatesOptions) => Promise<{ value: { latitude: number; longitude: number; }; }>
+```
+
+Set the coordinates to the image EXIF metadata.
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`options`** | <code><a href="#getcoordinatesoptions">GetCoordinatesOptions</a></code> |
+
+**Returns:** <code>Promise&lt;{ value: { latitude: number; longitude: number; }; }&gt;</code>
 
 **Since:** 6.0.0
 
@@ -57,12 +77,19 @@ Set the coordinates to the image EXIF metadata.
 ### Interfaces
 
 
-#### ExifOptions
+#### SetCoordinatesOptions
 
 | Prop              | Type                | Description                                                        | Since |
 | ----------------- | ------------------- | ------------------------------------------------------------------ | ----- |
 | **`pathToImage`** | <code>string</code> | The path to the image to set the coordinates to the EXIF metadata. | 6.0.0 |
 | **`latitude`**    | <code>number</code> | The latitude of the image.                                         | 6.0.0 |
 | **`longitude`**   | <code>number</code> | The longitude of the image.                                        | 6.0.0 |
+
+
+#### GetCoordinatesOptions
+
+| Prop              | Type                | Description                                                        | Since |
+| ----------------- | ------------------- | ------------------------------------------------------------------ | ----- |
+| **`pathToImage`** | <code>string</code> | The path to the image to set the coordinates to the EXIF metadata. | 6.0.0 |
 
 </docgen-api>

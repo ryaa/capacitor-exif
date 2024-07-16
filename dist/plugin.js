@@ -10,8 +10,13 @@ var capacitorExif = (function (exports, core) {
             console.log('ECHO', options);
             return options;
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         async setCoordinates(_options) {
             throw new Error('setCoordinates is not supported on web');
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        async getCoordinates(_options) {
+            throw new Error('getCoordinates is not supported on web');
         }
     }
 
