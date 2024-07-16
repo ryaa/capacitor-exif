@@ -13,11 +13,9 @@ export class ExifWeb extends WebPlugin implements ExifPlugin {
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async getCoordinates(_options: GetCoordinatesOptions): Promise<{
-    value: {
       latitude: number;
       longitude: number;
-    }
-  }> {
+    }> {
     throw new Error('getCoordinates is not supported on web');
   }
 }

@@ -8,9 +8,7 @@ export declare class ExifWeb extends WebPlugin implements ExifPlugin {
     }>;
     setCoordinates(_options: SetCoordinatesOptions): Promise<void>;
     getCoordinates(_options: GetCoordinatesOptions): Promise<{
-        value: {
-            latitude: number;
-            longitude: number;
-        };
+        latitude: number;
+        longitude: number;
     }>;
 }

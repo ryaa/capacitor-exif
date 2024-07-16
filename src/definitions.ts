@@ -50,10 +50,8 @@ export interface ExifPlugin {
    * @since 6.0.0
    */
   getCoordinates(options: GetCoordinatesOptions): Promise<{
-    value: {
       latitude: number;
       longitude: number;
-    }
-   }>;
+    }>;
 
 }

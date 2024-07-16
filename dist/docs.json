@@ -46,7 +46,7 @@
       },
       {
         "name": "getCoordinates",
-        "signature": "(options: GetCoordinatesOptions) => Promise<{ value: { latitude: number; longitude: number; }; }>",
+        "signature": "(options: GetCoordinatesOptions) => Promise<{ latitude: number; longitude: number; }>",
         "parameters": [
           {
             "name": "options",
@@ -54,7 +54,7 @@
             "type": "GetCoordinatesOptions"
           }
         ],
-        "returns": "Promise<{ value: { latitude: number; longitude: number; }; }>",
+        "returns": "Promise<{ latitude: number; longitude: number; }>",
         "tags": [
           {
             "name": "since",
