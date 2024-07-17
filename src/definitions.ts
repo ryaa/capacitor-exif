@@ -35,7 +35,6 @@ export interface SetCoordinatesOptions {
 }
 
 export interface ExifPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
 
   /**
    * Set the coordinates to the image EXIF metadata.

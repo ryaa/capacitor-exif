@@ -15,15 +15,6 @@ public class ExifPlugin extends Plugin {
 
     private final Exif implementation = new Exif();
 
-    @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
-    }
-
     @PluginMethod(returnType = PluginMethod.RETURN_PROMISE)
     public void setCoordinates(final PluginCall call) {
         
@@ -47,7 +38,7 @@ public class ExifPlugin extends Plugin {
         try {
             implementation.setCoordinates(pathToImage, latitude, longitude);
         } catch (Exception e) {
-            Log.e(TAG, "Error setting GPS data to photo", e);
+            Log.e(TAG, "Error setting GPS data to image", e);
             call.reject(e.getLocalizedMessage(), null, e);
             return;
         }
@@ -69,8 +60,7 @@ public class ExifPlugin extends Plugin {
         try {
             latLong = implementation.getCoordinates(pathToImage);
         } catch (Exception e) {
-            // throw new RuntimeException(e);
-            Log.e(TAG, "Error getting GPS data to photo", e);
+            Log.e(TAG, "Error getting GPS data from image", e);
             call.reject(e.getLocalizedMessage(), null, e);
             return;
         }
