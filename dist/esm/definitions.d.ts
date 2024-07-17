@@ -18,13 +18,13 @@ export interface SetCoordinatesOptions {
      *
      * @since 6.0.0
      */
-    latitude: number;
+    lat: number;
     /**
      * The longitude of the image.
      *
      * @since 6.0.0
      */
-    longitude: number;
+    lng: number;
 }
 export interface ExifPlugin {
     /**
@@ -39,7 +39,7 @@ export interface ExifPlugin {
      * @since 6.0.0
      */
     getCoordinates(options: GetCoordinatesOptions): Promise<{
-        latitude: number;
-        longitude: number;
+        lat: number;
+        lng: number;
     } | undefined>;
 }

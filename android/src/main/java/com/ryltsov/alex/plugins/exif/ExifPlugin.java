@@ -22,18 +22,18 @@ public class ExifPlugin extends Plugin {
             call.reject("Must provide an pathToImage");
             return;
         }
-        if (!call.getData().has("latitude")) {
-            call.reject("Must provide an latitude");
+        if (!call.getData().has("lat")) {
+            call.reject("Must provide an lat");
             return;
         }
-        if (!call.getData().has("longitude")) {
-            call.reject("Must provide an longitude");
+        if (!call.getData().has("lng")) {
+            call.reject("Must provide an lng");
             return;
         }
 
         String pathToImage = call.getString("pathToImage");
-        double latitude = call.getDouble("latitude");
-        double longitude = call.getDouble("longitude");
+        double latitude = call.getDouble("lat");
+        double longitude = call.getDouble("lng");
 
         try {
             implementation.setCoordinates(pathToImage, latitude, longitude);
@@ -68,8 +68,8 @@ public class ExifPlugin extends Plugin {
             JSObject ret = new JSObject();
             double latitude = latLong[0];
             double longitude = latLong[1];
-            ret.put("latitude", latitude);
-            ret.put("longitude", longitude);
+            ret.put("lat", latitude);
+            ret.put("lng", longitude);
             call.resolve(ret);
             return;
         }

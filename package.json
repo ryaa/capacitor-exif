@@ -1,7 +1,7 @@
 {
   "name": "capacitor-exif",
   "version": "6.0.0",
-  "description": "This plugin offers utility functions for interacting with jpeg exif metadata",
+  "description": "This plugin offers utility functions for interacting with image exif metadata",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

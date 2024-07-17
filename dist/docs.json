@@ -30,7 +30,7 @@
       },
       {
         "name": "getCoordinates",
-        "signature": "(options: GetCoordinatesOptions) => Promise<{ latitude: number; longitude: number; } | undefined>",
+        "signature": "(options: GetCoordinatesOptions) => Promise<{ lat: number; lng: number; } | undefined>",
         "parameters": [
           {
             "name": "options",
@@ -38,7 +38,7 @@
             "type": "GetCoordinatesOptions"
           }
         ],
-        "returns": "Promise<{ latitude: number; longitude: number; } | undefined>",
+        "returns": "Promise<{ lat: number; lng: number; } | undefined>",
         "tags": [
           {
             "name": "since",
@@ -75,7 +75,7 @@
           "type": "string"
         },
         {
-          "name": "latitude",
+          "name": "lat",
           "tags": [
             {
               "text": "6.0.0",
@@ -87,7 +87,7 @@
           "type": "number"
         },
         {
-          "name": "longitude",
+          "name": "lng",
           "tags": [
             {
               "text": "6.0.0",

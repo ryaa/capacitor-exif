@@ -3,7 +3,7 @@ import type { GetCoordinatesOptions, SetCoordinatesOptions, ExifPlugin } from '.
 export declare class ExifWeb extends WebPlugin implements ExifPlugin {
     setCoordinates(_options: SetCoordinatesOptions): Promise<void>;
     getCoordinates(_options: GetCoordinatesOptions): Promise<{
-        latitude: number;
-        longitude: number;
+        lat: number;
+        lng: number;
     } | undefined>;
 }

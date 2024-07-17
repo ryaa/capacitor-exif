@@ -42,7 +42,7 @@ Set the coordinates to the image EXIF metadata.
 ### getCoordinates(...)
 
 ```typescript
-getCoordinates(options: GetCoordinatesOptions) => Promise<{ latitude: number; longitude: number; } | undefined>
+getCoordinates(options: GetCoordinatesOptions) => Promise<{ lat: number; lng: number; } | undefined>
 ```
 
 Set the coordinates to the image EXIF metadata.
@@ -51,7 +51,7 @@ Set the coordinates to the image EXIF metadata.
 | ------------- | ----------------------------------------------------------------------- |
 | **`options`** | <code><a href="#getcoordinatesoptions">GetCoordinatesOptions</a></code> |
 
-**Returns:** <code>Promise&lt;{ latitude: number; longitude: number; }&gt;</code>
+**Returns:** <code>Promise&lt;{ lat: number; lng: number; }&gt;</code>
 
 **Since:** 6.0.0
 
@@ -66,8 +66,8 @@ Set the coordinates to the image EXIF metadata.
 | Prop              | Type                | Description                                                        | Since |
 | ----------------- | ------------------- | ------------------------------------------------------------------ | ----- |
 | **`pathToImage`** | <code>string</code> | The path to the image to set the coordinates to the EXIF metadata. | 6.0.0 |
-| **`latitude`**    | <code>number</code> | The latitude of the image.                                         | 6.0.0 |
-| **`longitude`**   | <code>number</code> | The longitude of the image.                                        | 6.0.0 |
+| **`lat`**         | <code>number</code> | The latitude of the image.                                         | 6.0.0 |
+| **`lng`**         | <code>number</code> | The longitude of the image.                                        | 6.0.0 |
 
 
 #### GetCoordinatesOptions

@@ -29,12 +29,12 @@ public class ExifPlugin: CAPPlugin, CAPBridgedPlugin {
             call.reject("Must provide an pathToImage")
             return
           }
-        guard let latitude = call.options["latitude"] as? Double else {
-            call.reject("Must provide an latitude")
+        guard let latitude = call.options["lat"] as? Double else {
+            call.reject("Must provide an lat")
             return
           }
-        guard let longitude = call.options["longitude"] as? Double else {
-            call.reject("Must provide an longitude")
+        guard let longitude = call.options["lng"] as? Double else {
+            call.reject("Must provide an lng")
             return
           }
         
@@ -65,8 +65,8 @@ public class ExifPlugin: CAPPlugin, CAPBridgedPlugin {
         do {
             let coordinates = try implementation.getCoordinates(filePath: pathToImage)
             call.resolve([
-              "latitude": coordinates.latitude,
-              "longitude": coordinates.longitude
+              "lat": coordinates.latitude,
+              "lng": coordinates.longitude
             ])
         } catch ImageProcessingError.invalidURL {
             call.reject(ExifPlugin.INVALID_URL_ERROR)
