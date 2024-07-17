@@ -102,7 +102,7 @@ public class ExifPlugin: CAPPlugin, CAPBridgedPlugin {
         
         do {
             // let filePath = "/path/to/your/image.jpg"
-            let coordinates = try implementation.getCoordinatesFromImageFile(filePath: pathToImage)
+            let coordinates = try implementation.getCoordinates(filePath: pathToImage)
             print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
             call.resolve([
               "latitude": coordinates.latitude,

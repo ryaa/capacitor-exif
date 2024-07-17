@@ -11,6 +11,17 @@ public enum PhotoError: Error {
     case unableToWriteData
     case missingGPSData
 }
+public enum ImageProcessingError: Error {
+    case invalidURL
+    case failedToLoadImage
+    case failedToCreateDestination
+    case failedToSaveImage
+}
+public enum ImageReadError: Error {
+    case invalidURL
+    case failedToLoadImage
+    case noGPSData
+}
 
 @objc public class Exif: NSObject {
     @objc public func echo(_ value: String) -> String {
@@ -34,9 +45,10 @@ public enum PhotoError: Error {
         return image
     }
     func loadImageFromFilePath(filePath: String) throws -> UIImage {
-        let imageURL = URL(fileURLWithPath: filePath)
+        // let imageURL = URL(fileURLWithPath: filePath)
+        let imageURL = URL(string: filePath)
         do {
-            let imageData = try Data(contentsOf: imageURL)
+            let imageData = try Data(contentsOf: imageURL!)
             let image = UIImage(data: imageData)
             return image!
         } catch {
@@ -137,35 +149,17 @@ public enum PhotoError: Error {
         do {
             try data.write(to: imageURL)
         } catch {
+            print("Error saving image: \(error)")
             throw PhotoError.unableToWriteData
         }
     }
 
 
-    // @objc public func setCoordinates(_ pathToImage: String, _ latitude: Double, _ longitude: Double) throws -> void {
+    /*
     func setCoordinates(_ pathToImage: String, _ latitude: Double, _ longitude: Double) throws {
         print(pathToImage)
         print(latitude)
         print(longitude)
-        
-        /*
-        if let image = loadImageFromFilePath(filePath: filePath) {
-            if let imageWithCoordinates = addCoordinatesToPhoto(image: image, latitude: latitude, longitude: longitude) {
-                // let newFilePath = "/path/to/your/new_image_with_coordinates.jpg"
-                let success = saveImageToFilePath(data: imageWithCoordinates, filePath: pathToImage)
-                if success {
-                    print("Image saved successfully with coordinates.")
-                } else {
-                    print("Failed to save the image.")
-                    throw ExifError.saveFailed
-                }
-            } else {
-                print("Failed to add coordinates to the image.")
-            }
-        } else {
-            print("Failed to load image from file path.")
-        }
-        */
         
         let image = try loadImageFromFilePath(filePath: pathToImage)
         let imageWithCoordinates = try addCoordinatesToPhoto(image: image, latitude: latitude, longitude: longitude)
@@ -173,6 +167,90 @@ public enum PhotoError: Error {
         try saveImageToFilePath(data: imageWithCoordinates, filePath: pathToImage)
         print("Image saved successfully with coordinates.")
         
+    }
+    */
+    /*
+    func setCoordinatesOLD(_ pathToImage: String, _ latitude: Double, _ longitude: Double) throws {
+        print(pathToImage)
+        print(latitude)
+        print(longitude)
+        
+        guard let fileURL = URL(string: filePath),
+              let imageSource = CGImageSourceCreateWithURL(fileURL as CFURL, nil) else {
+            print("Failed to load image")
+            return
+        }
+
+        let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as Dictionary?
+        print("Original metadata: \(String(describing: imageProperties))")
+
+        var metadata = imageProperties ?? [:]
+
+        var exifData = metadata[kCGImagePropertyExifDictionary as String] as? [String: Any] ?? [:]
+        exifData[kCGImagePropertyExifUserComment as String] = "Updated comment"
+        metadata[kCGImagePropertyExifDictionary as String] = exifData
+        print("Modified metadata: \(metadata)")
+
+        guard let destination = CGImageDestinationCreateWithURL(fileURL as CFURL, kUTTypeJPEG, 1, nil) else {
+            print("Failed to create image destination")
+            return
+        }
+
+        CGImageDestinationAddImageFromSource(destination, imageSource, 0, metadata as CFDictionary)
+
+        if CGImageDestinationFinalize(destination) {
+            print("Successfully saved image with updated metadata")
+        } else {
+            print("Failed to save image with updated metadata")
+        }
+        
+    }
+    */
+    func setCoordinates(_ pathToImage: String, _ latitude: Double, _ longitude: Double) throws {
+        // Convert the file path to a URL
+        guard let fileURL = URL(string: pathToImage) else {
+            throw ImageProcessingError.invalidURL
+        }
+
+        // Create an image source from the URL
+        guard let imageSource = CGImageSourceCreateWithURL(fileURL as CFURL, nil) else {
+            throw ImageProcessingError.failedToLoadImage
+        }
+
+        // Get the image metadata
+        guard let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
+            throw ImageProcessingError.failedToLoadImage
+        }
+
+        print("Original metadata: \(imageProperties)")
+
+        // Create a mutable copy of the metadata
+        var metadata = imageProperties
+
+        // Modify the GPS metadata
+        var gpsData = metadata[kCGImagePropertyGPSDictionary as String] as? [String: Any] ?? [:]
+        gpsData[kCGImagePropertyGPSLatitude as String] = abs(latitude)
+        gpsData[kCGImagePropertyGPSLatitudeRef as String] = (latitude >= 0.0) ? "N" : "S"
+        gpsData[kCGImagePropertyGPSLongitude as String] = abs(longitude)
+        gpsData[kCGImagePropertyGPSLongitudeRef as String] = (longitude >= 0.0) ? "E" : "W"
+        metadata[kCGImagePropertyGPSDictionary as String] = gpsData
+
+        print("Modified metadata: \(metadata)")
+
+        // Create a destination to write the new image data
+        guard let destination = CGImageDestinationCreateWithURL(fileURL as CFURL, kUTTypeJPEG, 1, nil) else {
+            throw ImageProcessingError.failedToCreateDestination
+        }
+
+        // Add the image and the updated metadata to the destination
+        CGImageDestinationAddImageFromSource(destination, imageSource, 0, metadata as CFDictionary)
+
+        // Finalize the destination to write the data
+        if !CGImageDestinationFinalize(destination) {
+            throw ImageProcessingError.failedToSaveImage
+        }
+
+        print("Successfully saved image with updated metadata")
     }
     
     func getCoordinatesFromImageFile(filePath: String) throws -> CLLocationCoordinate2D {
@@ -200,6 +278,38 @@ public enum PhotoError: Error {
         let lon = longitudeRef == "E" ? longitude : -longitude
         
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+    
+    func getCoordinates(filePath: String) throws -> CLLocationCoordinate2D {
+        // Convert the file path to a URL
+        guard let fileURL = URL(string: filePath) else {
+            throw ImageReadError.invalidURL
+        }
+
+        // Create an image source from the URL
+        guard let imageSource = CGImageSourceCreateWithURL(fileURL as CFURL, nil) else {
+            throw ImageReadError.failedToLoadImage
+        }
+
+        // Get the image metadata
+        guard let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
+            throw ImageReadError.failedToLoadImage
+        }
+
+        // Extract the GPS metadata
+        guard let gpsData = imageProperties[kCGImagePropertyGPSDictionary as String] as? [String: Any],
+              let latitude = gpsData[kCGImagePropertyGPSLatitude as String] as? Double,
+              let latitudeRef = gpsData[kCGImagePropertyGPSLatitudeRef as String] as? String,
+              let longitude = gpsData[kCGImagePropertyGPSLongitude as String] as? Double,
+              let longitudeRef = gpsData[kCGImagePropertyGPSLongitudeRef as String] as? String else {
+            throw ImageReadError.noGPSData
+        }
+
+        // Calculate the coordinates
+        let finalLatitude = (latitudeRef == "N") ? latitude : -latitude
+        let finalLongitude = (longitudeRef == "E") ? longitude : -longitude
+
+        return CLLocationCoordinate2D(latitude: finalLatitude, longitude: finalLongitude)
     }
 
 }
