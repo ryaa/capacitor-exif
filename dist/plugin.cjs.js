@@ -9,10 +9,6 @@ const Exif = core.registerPlugin('Exif', {
 });
 
 class ExifWeb extends core.WebPlugin {
-    async echo(options) {
-        console.log('ECHO', options);
-        return options;
-    }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async setCoordinates(_options) {
         throw new Error('setCoordinates is not supported on web');

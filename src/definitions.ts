@@ -51,6 +51,6 @@ export interface ExifPlugin {
   getCoordinates(options: GetCoordinatesOptions): Promise<{
       latitude: number;
       longitude: number;
-    }>;
+    } | undefined>;
 
 }

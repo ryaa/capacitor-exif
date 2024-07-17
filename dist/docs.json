@@ -6,22 +6,6 @@
     "tags": [],
     "methods": [
       {
-        "name": "echo",
-        "signature": "(options: { value: string; }) => Promise<{ value: string; }>",
-        "parameters": [
-          {
-            "name": "options",
-            "docs": "",
-            "type": "{ value: string; }"
-          }
-        ],
-        "returns": "Promise<{ value: string; }>",
-        "tags": [],
-        "docs": "",
-        "complexTypes": [],
-        "slug": "echo"
-      },
-      {
         "name": "setCoordinates",
         "signature": "(options: SetCoordinatesOptions) => Promise<void>",
         "parameters": [
@@ -46,7 +30,7 @@
       },
       {
         "name": "getCoordinates",
-        "signature": "(options: GetCoordinatesOptions) => Promise<{ latitude: number; longitude: number; }>",
+        "signature": "(options: GetCoordinatesOptions) => Promise<{ latitude: number; longitude: number; } | undefined>",
         "parameters": [
           {
             "name": "options",
@@ -54,7 +38,7 @@
             "type": "GetCoordinatesOptions"
           }
         ],
-        "returns": "Promise<{ latitude: number; longitude: number; }>",
+        "returns": "Promise<{ latitude: number; longitude: number; } | undefined>",
         "tags": [
           {
             "name": "since",

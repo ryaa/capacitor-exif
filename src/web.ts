@@ -13,8 +13,8 @@ export class ExifWeb extends WebPlugin implements ExifPlugin {
   public async getCoordinates(_options: GetCoordinatesOptions): Promise<{
       latitude: number;
       longitude: number;
-    }> {
+    } | undefined> {
     throw new Error('getCoordinates is not supported on web');
   }
-  
+
 }

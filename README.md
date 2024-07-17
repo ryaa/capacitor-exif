@@ -13,7 +13,6 @@ npx cap sync
 
 <docgen-index>
 
-* [`echo(...)`](#echo)
 * [`setCoordinates(...)`](#setcoordinates)
 * [`getCoordinates(...)`](#getcoordinates)
 * [Interfaces](#interfaces)
@@ -22,21 +21,6 @@ npx cap sync
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
-
-### echo(...)
-
-```typescript
-echo(options: { value: string; }) => Promise<{ value: string; }>
-```
-
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
-
-**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
-
---------------------
-
 
 ### setCoordinates(...)
 
@@ -58,7 +42,7 @@ Set the coordinates to the image EXIF metadata.
 ### getCoordinates(...)
 
 ```typescript
-getCoordinates(options: GetCoordinatesOptions) => Promise<{ latitude: number; longitude: number; }>
+getCoordinates(options: GetCoordinatesOptions) => Promise<{ latitude: number; longitude: number; } | undefined>
 ```
 
 Set the coordinates to the image EXIF metadata.

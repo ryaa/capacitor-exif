@@ -27,11 +27,6 @@ export interface SetCoordinatesOptions {
     longitude: number;
 }
 export interface ExifPlugin {
-    echo(options: {
-        value: string;
-    }): Promise<{
-        value: string;
-    }>;
     /**
      * Set the coordinates to the image EXIF metadata.
      *
@@ -46,5 +41,5 @@ export interface ExifPlugin {
     getCoordinates(options: GetCoordinatesOptions): Promise<{
         latitude: number;
         longitude: number;
-    }>;
+    } | undefined>;
 }
